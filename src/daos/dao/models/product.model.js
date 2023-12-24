@@ -6,11 +6,14 @@ const productCollection = "products"
 
 const productSchema = new mongoose.Schema({
     _id:{type:String, default:randomUUID},
-    name:{type:String,required:true},
-    lastname:{type:String,required:true},
-    age:{type:Number,required:true},
-    email:{type:String,unique:true,required:true},
-    pass:{type:String,required:true}
+    title:{type:String,required:true, index:true},
+    description:{type:String,required:true},
+    code:{type:String,required:true},
+    price:{type:Number,required:true},
+    status:{type:String,required:true},
+    stock:{type:Number,required:true},
+    category:{type:String,required:true},
+    thumbnails:{type:[String], default:[]},
 },{
     strict: 'throw',
     versionKey: false

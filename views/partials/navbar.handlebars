@@ -1,9 +1,11 @@
 <header>
     <nav>
         <ul>
+            {{#if user}}
+                <li><a href="/register">Bienvenido <a href="/profile">{{user}}</a></a></li>
+            {{/if}}
             <li><a href="/register">Sign in</a></li>
             <li><a href="/login">Login</a></li>
-            <li><a href="/profile">profile</a></li>
         </ul>
     </nav>
 </header>

@@ -3,6 +3,7 @@ import Router from 'express'
 import {router as cartRouter} from './cart.router.js'
 import {router as productRouter} from './product.router.js' */
 import { cartDao, productDao } from '../daos/dao/index.js'
+import { privateRoute } from '../middleware/sessions.js'
 
 export const router = Router()
 
@@ -81,7 +82,7 @@ router.get('/',(req,res)=>{
 
 
 router.get('/',(req,res)=>{
-    res.redirect('/profile')
+    res.redirect('/profile',{title:'Profile'})
 })
 
 router.get('/register',(req,res)=>{
@@ -92,8 +93,15 @@ router.get('/login',(req,res)=>{
     res.render('users/login.handlebars',{title:'Login'})
 })
 
-router.get('/profile',(req,res)=>{
-    res.render('users/w.handlebars',{title:'Perfil'})
+
+
+
+router.get('/profile',privateRoute,(req,res)=>{
+
+    res.render('users/profile.handlebars',
+        {title:'Perfil',
+        ...req.session['user']
+    })
 })
 
 

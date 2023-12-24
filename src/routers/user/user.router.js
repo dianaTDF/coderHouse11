@@ -3,7 +3,7 @@ import { userDao } from "../../daos/dao/index.js";
 
 export const router = Router()
 
-router.post('/',(req,res)=>{
+router.post('/',async (req,res)=> {
 
 /*     const {name
     ,lastname
@@ -11,8 +11,7 @@ router.post('/',(req,res)=>{
     ,email
     ,pass}= req.body */
     try {
-        console.log('lalala')
-        const user =userDao.create(req.body)
+        const user = await userDao.create(req.body)
         const response= {
             email:user.email,
             name:user.name,

@@ -6,7 +6,7 @@ form?.addEventListener('submit', async event=>{
     const data = new URLSearchParams(new FormData(form))
 
 
-    const response = await fetch('/api/sessions/login', {
+    const response = await fetch('/sessions/', {
         method: 'POST',
         body: data,
         headers: {

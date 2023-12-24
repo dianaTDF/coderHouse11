@@ -3,10 +3,8 @@ logoutForm = document.querySelector('form')
 logoutForm?.addEventListener('submit', async event=>{
     event.preventDefault()
     
-    const data = new URLSearchParams(new FormData(form))
 
-
-    const response = await fetch('/api/sessions/current', {
+    const response = await fetch('/sessions/current', {
         method: 'DELETE',
     })
 
