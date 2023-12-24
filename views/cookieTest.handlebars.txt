@@ -1,0 +1,15 @@
+<div class="">
+    <form id="cookieSetter">
+        <label for="">
+            usuario
+            <input type="text" name="user" id="">
+        </label>
+        <label for="">
+            correo
+            <input type="email" name="mail" id="">
+        </label>
+    <input type="submit" value="enviar">
+    </form>
+    <button id="btnCookie">get cookie</button>
+</div>
+<script src="/statics/js/cookieTest.client.js"></script>
