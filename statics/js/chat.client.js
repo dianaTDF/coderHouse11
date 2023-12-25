@@ -2,7 +2,7 @@ const socket = io()
 //const listDiv= document.getElementById('chat_list')
 
 //algunas globales
-const chatBox = document.getElementById('chat_box')
+/* const chatBox = document.getElementById('chat_box')
 
 function checkLog(){
     chatBox.style.display= 'none'
@@ -16,15 +16,15 @@ function checkLog(){
 
     return userEmail
 }
-
-
+ */
+/* 
 const userLogForm = document.getElementById('log_form')
 userLogForm.addEventListener('submit',(event)=>{
     event.preventDefault()
     checkLog()
     window.location.reload()
 
-})
+}) */
 
 /* window.onload=()=>{
     checkLog()
@@ -33,7 +33,7 @@ userLogForm.addEventListener('submit',(event)=>{
 
 /* ---------------------------- listar mensajes ---------------------------- */
 socket.on('messagesList',messages=>{
-    const userEmail = checkLog()
+    const userEmail =  document.getElementById('userMail').value
 
     console.log(messages)
     for (const {user,message} of messages) {
@@ -68,16 +68,19 @@ messageForm?.addEventListener('submit',async event =>{
 
     const data  = new FormData(messageForm)
     const messBody = Object.fromEntries(data).message
-
-    if (messBody != ''  && checkLog() != null){
+    const user= document.getElementById('userMail').value
+    
+    if (messBody != ''  &&  user!= null){
 
         const newMessage= {
             message: messBody,
-            user: checkLog()
+            user: user
         }
         
         console.log(newMessage)
         socket.emit('messageAdd',newMessage)
+        window.location.reload()
+
     }
     else{
         socket.emit('errorMessage',{message:`no esta logeado y/o el mensaje esta vaccio`})

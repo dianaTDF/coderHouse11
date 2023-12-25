@@ -1,8 +1,8 @@
+/* 
 import Router from 'express'
 
 export const router = Router()
 
-/* 
 router.get('/setCookie',(req,res)=>{
     res.cookie('myCookie','alta cookie',{maxAge:10000}).send("Cookie")
 })
@@ -49,7 +49,7 @@ router.post('/cookieGet',(req,res)=>{
 })
  */
 //con express-session
-router.get('/',(req,res)=>{
+/* router.get('/',(req,res)=>{
     if(req.session.counter){
         req.session.counter++
         res.send(`visitaste ${req.session.counter} el sitio`)
@@ -60,7 +60,7 @@ router.get('/',(req,res)=>{
 
     }
 })
-
+ */
 
 
 

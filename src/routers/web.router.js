@@ -8,7 +8,9 @@ import { privateRoute } from '../middleware/sessions.js'
 export const router = Router()
 
 router.get('/chat',(req,res)=>{
-    res.render('chat.handlebars',{title:'Chat',css:true, cssRoute:`/statics/css/chat.css`})
+    res.render('chat.handlebars',{title:'Chat',css:true, cssRoute:`/statics/css/chat.css`,
+    ...req.session['user'],
+    loggedUser: req.session['user']?req.session['user'].name:false})
 })
 
 
@@ -30,7 +32,8 @@ router.get('/products/:pid', async (req,res)=>{
     const  {pid}= req.params
     try {
         const product = await productDao.findById(pid).lean()
-        res.render('products.show.handlebars',{title:'Ver roducto',product:product})
+        res.render('products.show.handlebars',{title:'Ver roducto',product:product,
+        loggedUser: req.session['user']?req.session['user'].name:false})
     } catch (error) {
         res.status(404).send({result:'error'})
         console.log(`MongoDB: couldn't get product\n ERROR: ${error}`)
@@ -71,7 +74,8 @@ router.get('/products', async (req,res)=>{
         result.hasSort=true
         result.sort=sort
     }
-    res.render('products.new.handlebars',{title:'productos', ...result, })
+    res.render('products.new.handlebars',{title:'productos', ...result,
+    loggedUser: req.session['user']?req.session['user'].name:false})
 })
 
 /* 
@@ -82,15 +86,19 @@ router.get('/',(req,res)=>{
 
 
 router.get('/',(req,res)=>{
-    res.redirect('/profile',{title:'Profile'})
+    res.redirect('/profile',{title:'Login',
+    loggedUser: req.session['user']?req.session['user'].name:false})
 })
 
 router.get('/register',(req,res)=>{
-    res.render('users/register.handlebars',{title:'Registro'})
+    res.render('users/register.handlebars',{title:'Registro',
+    loggedUser: req.session['user']?req.session['user'].name:false})
 })
 
 router.get('/login',(req,res)=>{
-    res.render('users/login.handlebars',{title:'Login'})
+    res.render('users/login.handlebars',
+    {title:'Login',
+    loggedUser: req.session['user']?req.session['user'].name:false})
 })
 
 
@@ -100,8 +108,8 @@ router.get('/profile',privateRoute,(req,res)=>{
 
     res.render('users/profile.handlebars',
         {title:'Perfil',
-        ...req.session['user']
-    })
+        ...req.session['user'],
+        loggedUser: req.session['user']?req.session['user'].name:false})
 })
 
 
