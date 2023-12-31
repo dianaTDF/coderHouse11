@@ -1,5 +1,6 @@
 import {mongoose,model} from "mongoose"
 import {randomUUID} from 'node:crypto'
+import { sameHashedPass } from "../../../utils/criptography.js"
 
 const userCollection = "users"
 
@@ -12,7 +13,33 @@ const userSchema = new mongoose.Schema({
     pass:{type:String,required:true}
 },{
     strict: 'throw',
-    versionKey: false
+    versionKey: false,
+    statics:{
+        login: async function(email,password){
+
+            const user= await mongoose.model(userCollection).findOne({email}).lean()
+            
+            if(!user){
+                throw new Error('login failed')
+            }
+        
+            if(!sameHashedPass(password,user.pass)){
+                throw new Error('login failed: wrong password')
+            }
+        
+            let rol= user.email== 'adminCoder@coder.com' && user.pass == 'adminCod3r123' ? 'admin': 'user'
+        
+            userData={
+                name: user.name,
+                lastname: user.lastname,
+                email: user.email,
+                rol: rol,
+            }
+        
+            return userData
+        }
+
+    }
 })
 
 export const manager = model(userCollection,userSchema)

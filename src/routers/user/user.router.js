@@ -1,15 +1,20 @@
 import { Router } from "express";
 import { userDao } from "../../daos/dao/index.js";
+import { hashPass } from "../../utils.js/criptography.js";
 
 export const router = Router()
 
 router.post('/',async (req,res)=> {
 
-/*     const {name
-    ,lastname
-    ,age
-    ,email
-    ,pass}= req.body */
+/*     
+    const {name
+        ,lastname
+        ,age
+        ,email
+        ,pass}= req.body */
+
+    req.body.pass = hashPass(req.body.pass)
+    
     try {
         const user = await userDao.create(req.body)
         const response= {
