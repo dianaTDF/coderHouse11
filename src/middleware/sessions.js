@@ -15,15 +15,6 @@ export const sessions =session({
 })
 
 
-export function privateRoute(req,res,next){
-    if (!req.session['user']) {
-        return res.status(403).json({
-            status:'error',
-            message:'Debe loggearse para acceder',
-        })
-    }
-    next()
-}
 /* import cookieParser from 'cookie-parser'
 import { randomUUID } from 'node:crypto'
 

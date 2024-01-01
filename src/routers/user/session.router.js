@@ -37,8 +37,16 @@ router.post('/',
         const {email, password}=req.body
         try {
             const userData= await userDao.login(email,password)
-            req.session['user']=userData
-            next()
+            //req.session['user']=userData
+            req,login(userData,(error)=>{
+                if(error){
+                    next(error)
+                }else{
+                    next()
+                }
+            })
+            //next()
+            
         } catch (error) {
             next(error)
         }        

@@ -8,6 +8,7 @@ import {router as userRouter} from './routers/user/user.router.js'
 import {router as sesionRouter} from './routers/user/session.router.js'
 import { onConnection } from "./sockets/socket.controller.js"
 import { sessions } from "./middleware/sessions.js"
+import { passportInitialize, passportSession } from "./middleware/authentication.js"
 //import cookieParser from "cookie-parser"
 //import sessionsMiddleware from "./middleware/sessions.js"
 
@@ -27,6 +28,7 @@ socketServer.on('connection', onConnection(socketServer))
 
 //app.use(cookieParser('DirtySecret'))
 app.use(sessions )
+app.use(passportInitialize,passportSession )
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use('/statics', express.static('./statics'))
