@@ -18,24 +18,23 @@ const userSchema = new mongoose.Schema({
         login: async function(email,password){
 
             const user= await mongoose.model(userCollection).findOne({email}).lean()
-            
+       
             if(!user){
                 throw new Error('login failed')
             }
         
-            if(!sameHashedPass(password,user.pass)){
+            if(!sameHashedPass(password,user['pass'])){
                 throw new Error('login failed: wrong password')
             }
+            let rol= user['email']== 'adminCoder@coder.com' && sameHashedPass('adminCod3r123',user['pass'])  ? 'admin': 'user'
         
-            let rol= user.email== 'adminCoder@coder.com' && user.pass == 'adminCod3r123' ? 'admin': 'user'
-        
-            userData={
-                name: user.name,
-                lastname: user.lastname,
-                email: user.email,
+            const userData={
+                name: user['name'],
+                lastname: user['lastname'],
+                email: user['email'],
                 rol: rol,
             }
-        
+
             return userData
         }
 

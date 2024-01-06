@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { userDao } from "../../daos/dao/index.js";
-import { hashPass } from "../../utils.js/criptography.js";
+import { hashPass } from "../../utils/criptography.js";
 
 export const router = Router()
 
