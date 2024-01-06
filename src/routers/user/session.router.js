@@ -34,7 +34,9 @@ async function login(email,password){
 
 
 router.post('/',
-    passport.authenticate('loginLocal')
+    passport.authenticate('loginLocal',{
+        failWithError:true
+    })
     ,
     async (req,res,next)=>{
         res.status(201)
@@ -142,3 +144,10 @@ router.post('/',
     )  
 */
 
+/* 
+    //si fuese un servidor de paginas se podria usar
+    passport.authenticate('loginLocal',{
+        successRedirect:'/profile',
+        failureRedirect:'/login',
+    })
+ */

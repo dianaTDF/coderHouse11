@@ -18,7 +18,7 @@ form?.addEventListener('submit', async event=>{
     
     if(response.status== 201){
         const {playload:usuario} = await response.json()
-        window.location.href= '/login'
+        window.location.href= '/profile'
     }else{
          const error = await response.json()
          alert(error.message)

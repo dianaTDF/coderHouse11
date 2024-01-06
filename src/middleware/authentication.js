@@ -1,6 +1,8 @@
-import passport from "passport"
+ import passport from "passport"
 import { Strategy as localStrategy } from "passport-local"
 import { userDao } from "../daos/dao/index.js"
+import { Strategy as githubStrategy } from "passport-github2"
+import { GITHUB_CALLBACK_URL, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from "../config.js"
 
 passport.serializeUser((user,next)=>{next(null,user)})
 
@@ -26,6 +28,12 @@ const loginLocal = new localStrategy(passportConf,verificationCallBack)
 
 passport.use('loginLocal',loginLocal)
 /* ---------------------- fin estrategia local passport --------------------- */
+
+passport.use('loginGithub',new githubStrategy({
+    clientID: GITHUB_CLIENT_ID,
+    clientSecret:GITHUB_CLIENT_SECRET,
+    callbackURL:GITHUB_CALLBACK_URL 
+},async()=>{}))//te querdaste en 32802
 
 export const passportInitialize= passport.initialize()
 export const passportSession = passport.session() 

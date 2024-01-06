@@ -22,10 +22,16 @@ router.post('/',async (req,res)=> {
             name:user.name,
             lastname:user.lastname,
         }
-        res.status(201).json({status:'success',playload:response})         
+  
+        req.login(user.toObject(),error=>{
+            if(error){
+                res.status(400).json({status:'failure',playload:{message:error.message}})         
+            }else{
+                res.status(201).json({status:'success',playload:response})                         
+            }
+        })
     } catch (error) {
-        res.status(400).json({status:'failure',playload:{message:error.message}})         
-        
+        res.status(400).json({status:'failure',playload:{message:error.message}})                 
     }
 
 })
