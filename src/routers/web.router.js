@@ -88,8 +88,7 @@ router.get('/',(req,res)=>{
 
 router.get('/',(req,res)=>{
     if(req.user){
-        res.redirect('/profile',{title:'Login',
-        loggedUser: req.user?req.user.name:false})    
+       return  res.redirect('/profile')    
     }
     res.redirect('/login')    
 
@@ -115,7 +114,6 @@ router.get('/githubcallback', passport.authenticate('loginGithub',{
 
 
 router.get('/profile',privateRoute,(req,res)=>{
-
     res.render('users/profile.handlebars',
         {title:'Perfil',
         ...req.user,
