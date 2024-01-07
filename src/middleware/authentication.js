@@ -39,7 +39,7 @@ passport.use('loginGithub',new githubStrategy({
     if(!user){
         user= await userDao.create({
             name: profile.name,
-            email:profile.username,
+            email:profile._json.email,
         })
     }
     done(null,user.toObject())

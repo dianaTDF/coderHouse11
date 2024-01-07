@@ -6,10 +6,11 @@ const userCollection = "users"
 
 const userSchema = new mongoose.Schema({
     _id:{type:String, default:randomUUID},
-    name:{type:String/* ,required:true */},
+    name:{type:String/* ,required:true */,default: ''},
     lastname:{type:String/* ,required:true */,default:"no definido"},
-    age:{type:Number/* ,required:true */},
+    age:{type:Number/* ,required:true */, default: null},
     email:{type:String,unique:true,required:true},
+    rol: {type: String, default: 'user'},
     pass:{type:String}//se acomodo la logica para aplucar el githublogin
 },{
     strict: 'throw',
@@ -40,5 +41,12 @@ const userSchema = new mongoose.Schema({
 
     }
 })
+
+userSchema.options.toObject = {
+    transform: function (doc, ret) {
+      // Elimina el atributo 'pass' del resultado
+      delete ret.pass;
+    }
+  };
 
 export const manager = model(userCollection,userSchema)
