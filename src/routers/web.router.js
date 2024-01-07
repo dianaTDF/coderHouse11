@@ -4,6 +4,7 @@ import {router as cartRouter} from './cart.router.js'
 import {router as productRouter} from './product.router.js' */
 import { cartDao, productDao } from '../daos/dao/index.js'
 import { privateRoute } from '../middleware/authorization.js'
+import passport from 'passport'
 
 export const router = Router()
 
@@ -105,7 +106,12 @@ router.get('/login',(req,res)=>{
     loggedUser: req.user?req.user.name:false})
 })
 
+router.get('/githublogin', passport.authenticate('loginGithub'))
 
+router.get('/githubcallback', passport.authenticate('loginGithub',{
+    successRedirect:'/profile',
+    failureRedirect:'/login',
+}))
 
 
 router.get('/profile',privateRoute,(req,res)=>{
@@ -115,6 +121,8 @@ router.get('/profile',privateRoute,(req,res)=>{
         ...req.user,
         loggedUser: req.user?req.user.name:false})
 })
+
+
 
 
 

@@ -33,7 +33,17 @@ passport.use('loginGithub',new githubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret:GITHUB_CLIENT_SECRET,
     callbackURL:GITHUB_CALLBACK_URL 
-},async()=>{}))//te querdaste en 32802
+},async(a,b,profile,done)=>{
+    console.log(profile)
+    let user = await userDao.findOne({email:profile.username})
+    if(!user){
+        user= await userDao.create({
+            name: profile.name,
+            email:profile.username,
+        })
+    }
+    done(null,user.toObject())
+}))//te querdaste en 32802
 
 export const passportInitialize= passport.initialize()
 export const passportSession = passport.session() 

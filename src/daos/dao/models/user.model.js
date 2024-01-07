@@ -6,11 +6,11 @@ const userCollection = "users"
 
 const userSchema = new mongoose.Schema({
     _id:{type:String, default:randomUUID},
-    name:{type:String,required:true},
-    lastname:{type:String,required:true},
-    age:{type:Number,required:true},
+    name:{type:String/* ,required:true */},
+    lastname:{type:String/* ,required:true */,default:"no definido"},
+    age:{type:Number/* ,required:true */},
     email:{type:String,unique:true,required:true},
-    pass:{type:String,required:true}
+    pass:{type:String}//se acomodo la logica para aplucar el githublogin
 },{
     strict: 'throw',
     versionKey: false,
